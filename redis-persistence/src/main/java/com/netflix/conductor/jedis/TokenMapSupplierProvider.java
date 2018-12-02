@@ -35,12 +35,13 @@ public class TokenMapSupplierProvider implements Provider<TokenMapSupplier> {
 
             @Override
             public List<HostToken> getTokens(Set<Host> activeHosts) {
+                    
+                    Host[] hostList = activeHosts.toArray(new Host[0]);
+		    ArrayList<HostToken> tokenList = new ArrayList<HostToken>();
                 
-                 ArrayList<HostToken> tokenList = new ArrayList<HostToken>();
-                
-                for (int i = 0; i < activeHosts.size(); i++) {
-                 Host host = activeHosts.get(i);
-                 tokenList.add(new HostToken(4294967295L, host));
+                	for (int i = 0; i < hostList.length; i++) {
+                 		Host host = hostList[i];
+                 		tokenList.add(new HostToken(4294967295L, host));
 	             }
                 
                 
