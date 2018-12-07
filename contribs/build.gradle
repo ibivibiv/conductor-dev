@@ -5,6 +5,8 @@ dependencies {
 
 	compile 'com.amazonaws:aws-java-sdk-sqs:latest.release'
 	compile "com.google.inject:guice:${revGuice}"
+	
+	compile "com.rabbitmq:amqp-client:5.5.1"
 
 	compile "net.thisptr:jackson-jq:${revJq}"
 
