@@ -80,6 +80,10 @@
             "locked": "0.5.0",
             "requested": "0.5.0"
         },
+        "com.rabbitmq:amqp-client": {
+            "locked": "5.5.1",
+            "requested": ":5.5.1"
+        },
         "io.reactivex:rxjava": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-core"
