@@ -159,6 +159,10 @@
             ],
             "locked": "2.4"
         },
+        "com.rabbitmq:amqp-client": {
+            "locked": "5.5.1",
+            "requested": "5.5.1"
+        },
         "io.nats:java-nats-streaming": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
