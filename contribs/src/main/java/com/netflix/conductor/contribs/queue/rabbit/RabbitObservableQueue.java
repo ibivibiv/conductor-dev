@@ -137,6 +137,7 @@ public class RabbitObservableQueue implements ObservableQueue {
                     builder.contentType("text/plain");
                     builder.messageId(msg.getId());
                     builder.headers(headers);
+		    logger.info("Sending messages to "+this.exchange+" "+queueName);
                     channel.basicPublish(this.exchange, queueName, builder.build(), msg.getPayload().getBytes());
                     logger.info("Sending {} messages", messages.size());
                 } catch (IOException e) {
