@@ -103,8 +103,24 @@ public interface ElasticSearchConfiguration extends Configuration {
         return getProperty(EMBEDDED_SETTINGS_FILE_PROPERTY_NAME, EMBEDDED_SETTINGS_FILE_DEFAULT_VALUE);
     }
     
-    default String getIndexEventing() {
+    default boolean getIndexEventing() {
         return getProperty(ELASTIC_SEARCH_INDEX_EVENTING, ELASTIC_SEARCH_INDEX_EVENTING_DEFAULT_VALUE);
+    }
+    
+    default String getEventingExchange() {
+        return getProperty(ELASTIC_SEARCH_INDEX_EVENTING_EXCHANGE, ELASTIC_SEARCH_INDEX_EVENTING_EXCHANGE_DEFAULT_VALUE);
+    }
+    
+    default String getEventingRouting() {
+        return getProperty(ELASTIC_SEARCH_INDEX_EVENTING_ROUTING, ELASTIC_SEARCH_INDEX_EVENTING_ROUTING_DEFAULT_VALUE);
+    }
+    
+    default String getEventingHost() {
+        return getProperty(ELASTIC_SEARCH_INDEX_EVENTING_HOST, ELASTIC_SEARCH_INDEX_EVENTING_HOST_DEFAULT_VALUE);
+    }
+    
+    default int getEventingPort() {
+        return getProperty(ELASTIC_SEARCH_INDEX_EVENTING_PORT, ELASTIC_SEARCH_INDEX_EVENTING_PORT_DEFAULT_VALUE);
     }
 
     default ElasticSearchInstanceType getElasticSearchInstanceType() {
