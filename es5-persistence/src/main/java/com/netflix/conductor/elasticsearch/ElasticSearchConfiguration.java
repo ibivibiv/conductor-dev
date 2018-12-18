@@ -41,7 +41,19 @@ public interface ElasticSearchConfiguration extends Configuration {
     String EMBEDDED_SETTINGS_FILE_DEFAULT_VALUE = "embedded-es.yml";
     
     String ELASTIC_SEARCH_INDEX_EVENTING = "workflow.elasticsearch.eventing";
-    String ELASTIC_SEARCH_INDEX_EVENTING_DEFAULT_VALUE = "false";
+    boolean ELASTIC_SEARCH_INDEX_EVENTING_DEFAULT_VALUE = false;
+    
+    String ELASTIC_SEARCH_INDEX_EVENTING_EXCHANGE = "workflow.elasticsearch.eventing.exchange";
+    String ELASTIC_SEARCH_INDEX_EVENTING_EXCHANGE_DEFAULT_VALUE = "index.events";
+    
+    String ELASTIC_SEARCH_INDEX_EVENTING_ROUTING = "workflow.elasticsearch.eventing.routing";
+    String ELASTIC_SEARCH_INDEX_EVENTING_ROUTING_DEFAULT_VALUE = "index.events";
+    
+    String ELASTIC_SEARCH_INDEX_EVENTING_HOST = "workflow.elasticsearch.eventing.host";
+    String ELASTIC_SEARCH_INDEX_EVENTING_HOST_DEFAULT_VALUE = "localhost";
+    
+    String ELASTIC_SEARCH_INDEX_EVENTING_PORT = "workflow.elasticsearch.eventing.port";
+    int ELASTIC_SEARCH_INDEX_EVENTING__PORT_DEFAULT_VALUE = 5672;
 
     default String getURL() {
         return getProperty(ELASTIC_SEARCH_URL_PROPERTY_NAME, ELASTIC_SEARCH_URL_DEFAULT_VALUE);
