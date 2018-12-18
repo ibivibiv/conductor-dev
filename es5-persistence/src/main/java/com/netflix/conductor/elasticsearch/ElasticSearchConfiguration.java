@@ -53,7 +53,7 @@ public interface ElasticSearchConfiguration extends Configuration {
     String ELASTIC_SEARCH_INDEX_EVENTING_HOST_DEFAULT_VALUE = "localhost";
     
     String ELASTIC_SEARCH_INDEX_EVENTING_PORT = "workflow.elasticsearch.eventing.port";
-    int ELASTIC_SEARCH_INDEX_EVENTING__PORT_DEFAULT_VALUE = 5672;
+    int ELASTIC_SEARCH_INDEX_EVENTING_PORT_DEFAULT_VALUE = 5672;
 
     default String getURL() {
         return getProperty(ELASTIC_SEARCH_URL_PROPERTY_NAME, ELASTIC_SEARCH_URL_DEFAULT_VALUE);
@@ -104,7 +104,7 @@ public interface ElasticSearchConfiguration extends Configuration {
     }
     
     default boolean getIndexEventing() {
-        return getProperty(ELASTIC_SEARCH_INDEX_EVENTING, ELASTIC_SEARCH_INDEX_EVENTING_DEFAULT_VALUE);
+        return getBooleanProperty(ELASTIC_SEARCH_INDEX_EVENTING, ELASTIC_SEARCH_INDEX_EVENTING_DEFAULT_VALUE);
     }
     
     default String getEventingExchange() {
@@ -120,7 +120,7 @@ public interface ElasticSearchConfiguration extends Configuration {
     }
     
     default int getEventingPort() {
-        return getProperty(ELASTIC_SEARCH_INDEX_EVENTING_PORT, ELASTIC_SEARCH_INDEX_EVENTING_PORT_DEFAULT_VALUE);
+        return getIntProperty(ELASTIC_SEARCH_INDEX_EVENTING_PORT, ELASTIC_SEARCH_INDEX_EVENTING_PORT_DEFAULT_VALUE);
     }
 
     default ElasticSearchInstanceType getElasticSearchInstanceType() {
