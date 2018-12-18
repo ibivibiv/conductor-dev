@@ -36,6 +36,7 @@ import com.netflix.conductor.dao.es5.index.query.parser.Expression;
 import com.netflix.conductor.elasticsearch.ElasticSearchConfiguration;
 import com.netflix.conductor.elasticsearch.query.parser.ParserException;
 import com.netflix.conductor.metrics.Monitors;
+import com.netflix.conductor.dao.es5.index.eventing.IndexEventProducer;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.ResourceAlreadyExistsException;
@@ -132,6 +133,16 @@ public class ElasticSearchDAOV5 implements IndexDAO {
     private final ExecutorService executorService;
     
     private final boolean indexEventing;
+    
+    private final String eventingExchange;
+    
+    private final String eventingRouting;
+    
+    private final String eventingHost;
+    
+    private final int eventingPort;
+    
+    private IndexEventProducer indexEventProducer;
 
     static {
         SIMPLE_DATE_FORMAT.setTimeZone(GMT);
@@ -148,6 +159,10 @@ public class ElasticSearchDAOV5 implements IndexDAO {
         int maximumPoolSize = 12;
         long keepAliveTime = 1L;
         this.indexEventing = config.getIndexEventing();
+        this.eventingExchange = config.getEventingExchange();
+        this.eventingRouting = config.getEventingRouting();
+        this.eventingHost = config.getEventingHost();
+        this.eventingPort = config.getEventingPort();
         
         this.executorService = new ThreadPoolExecutor(corePoolSize,
                 maximumPoolSize,
@@ -165,6 +180,7 @@ public class ElasticSearchDAOV5 implements IndexDAO {
             initIndex();
             updateIndexName();
             Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -> updateIndexName(), 0, 1, TimeUnit.HOURS);
+            indexEventProducer = new IndexEventProducer(eventingExchange, eventingRouting, eventingHost, eventingPort);
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -258,6 +274,11 @@ public class ElasticSearchDAOV5 implements IndexDAO {
             req.upsert(doc, XContentType.JSON);
             req.retryOnConflict(5);
             updateWithRetry(req, "Index workflow into doc_type workflow");
+            if(indexEventing) {
+             
+                indexEventProducer.sendWorkflow(indexName, id, workflow);
+                
+            }
 
         } catch (Throwable e) {
             logger.error("Failed to index workflow: {}", workflow.getWorkflowId(), e);
@@ -281,6 +302,11 @@ public class ElasticSearchDAOV5 implements IndexDAO {
             req.doc(doc, XContentType.JSON);
             req.upsert(doc, XContentType.JSON);
             updateWithRetry(req, "Index workflow into doc_type workflow");
+            if(indexEventing) {
+             
+                indexEventProducer.sendTask(indexName, id, task);
+                
+            }
 
         } catch (Throwable e) {
             logger.error("Failed to index task: {}", task.getTaskId(), e);
