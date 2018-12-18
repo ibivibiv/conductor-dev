@@ -130,6 +130,8 @@ public class ElasticSearchDAOV5 implements IndexDAO {
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyyMMww");
 
     private final ExecutorService executorService;
+    
+    private final boolean indexEventing;
 
     static {
         SIMPLE_DATE_FORMAT.setTimeZone(GMT);
@@ -145,6 +147,8 @@ public class ElasticSearchDAOV5 implements IndexDAO {
         int corePoolSize = 6;
         int maximumPoolSize = 12;
         long keepAliveTime = 1L;
+        this.indexEventing = config.getIndexEventing();
+        
         this.executorService = new ThreadPoolExecutor(corePoolSize,
                 maximumPoolSize,
                 keepAliveTime,
