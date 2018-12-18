@@ -39,6 +39,9 @@ public interface ElasticSearchConfiguration extends Configuration {
 
     String EMBEDDED_SETTINGS_FILE_PROPERTY_NAME = "workflow.elasticsearch.embedded.settings.file";
     String EMBEDDED_SETTINGS_FILE_DEFAULT_VALUE = "embedded-es.yml";
+    
+    String ELASTIC_SEARCH_INDEX_EVENTING = "workflow.elasticsearch.eventing";
+    String ELASTIC_SEARCH_INDEX_EVENTING_DEFAULT_VALUE = "false";
 
     default String getURL() {
         return getProperty(ELASTIC_SEARCH_URL_PROPERTY_NAME, ELASTIC_SEARCH_URL_DEFAULT_VALUE);
@@ -86,6 +89,10 @@ public interface ElasticSearchConfiguration extends Configuration {
 
     default String getEmbeddedSettingsFile() {
         return getProperty(EMBEDDED_SETTINGS_FILE_PROPERTY_NAME, EMBEDDED_SETTINGS_FILE_DEFAULT_VALUE);
+    }
+    
+    default String getIndexEventing() {
+        return getProperty(ELASTIC_SEARCH_INDEX_EVENTING, ELASTIC_SEARCH_INDEX_EVENTING_DEFAULT_VALUE);
     }
 
     default ElasticSearchInstanceType getElasticSearchInstanceType() {
